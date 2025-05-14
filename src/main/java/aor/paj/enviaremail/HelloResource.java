@@ -11,13 +11,14 @@ import jakarta.ws.rs.core.Response;
 
 import java.awt.*;
 
-@Path("/mail")
+@Path("/test")
 public class HelloResource {
 
     @Inject
     EmailManager emailManager;
 
     @GET
+    @Path("/mail")
     @Produces(MediaType.APPLICATION_JSON)
     public Response hello() {
         emailManager.sendEmail("jpfs1812@gmail.com","Emails de teste","Hey Jorge!");
