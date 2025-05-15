@@ -1,5 +1,6 @@
 package aor.paj.enviaremail;
 
+import aor.paj.CsvManager;
 import emailManager.EmailManager;
 import jakarta.ejb.EJB;
 import jakarta.inject.Inject;
@@ -10,6 +11,7 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
 import java.awt.*;
+import java.io.File;
 
 @Path("/test")
 public class HelloResource {
@@ -17,11 +19,23 @@ public class HelloResource {
     @Inject
     EmailManager emailManager;
 
+    
+
     @GET
     @Path("/mail")
     @Produces(MediaType.APPLICATION_JSON)
     public Response hello() {
         emailManager.sendEmail("jpfs1812@gmail.com","Emails de teste","Hey Jorge!");
         return Response.ok("email enviado").build();
+    }
+
+    @GET
+    @Path("/csv")
+    public Response csv(){
+
+        File file=  CsvManager.convertToCsv();
+
+
+        return Response.ok(file).build();
     }
 }
