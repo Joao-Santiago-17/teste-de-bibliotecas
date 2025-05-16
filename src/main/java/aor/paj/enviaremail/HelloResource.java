@@ -1,8 +1,8 @@
 package aor.paj.enviaremail;
 
-import aor.paj.CsvManager;
+import aor.paj.CsvManager.CsvManager;
+import aor.paj.PdfTest.PdfManager;
 import emailManager.EmailManager;
-import jakarta.ejb.EJB;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
@@ -10,7 +10,6 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
-import java.awt.*;
 import java.io.File;
 
 @Path("/test")
@@ -37,5 +36,14 @@ public class HelloResource {
 
 
         return Response.ok(file).build();
+    }
+
+    @GET
+    @Path("/pdf")
+    public Response pdf(){
+        File file = PdfManager.convertPdf();
+        return Response.ok(file)
+                .header("Content-Disposition", "attachment; filename=pessoa.pdf")
+                .build();
     }
 }
